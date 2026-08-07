@@ -1,7 +1,7 @@
 import { DeveloperProfile, Project, SkillCategory } from '../types';
 import seatifyImg from '../assets/images/seatify_app_preview_1786035502763.jpg';
 import meterwiseImg from '../assets/images/meterwise_app_preview_1786035515545.jpg';
-import profileAvatarImg from '../assets/images/profile_avatar_1786036165505.jpg';
+import profileAvatarImg from '../assets/images/profile_portrait_1786102520376.jpg';
 import heroBgImg from '../assets/images/hero_mountain_bg_1786036239686.jpg';
 
 export const initialProfile: DeveloperProfile = {

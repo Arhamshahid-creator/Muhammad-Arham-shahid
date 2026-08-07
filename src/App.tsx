@@ -19,7 +19,7 @@ export default function App() {
         return {
           ...initialProfile,
           ...parsed,
-          avatar: parsed.avatar || initialProfile.avatar,
+          avatar: (parsed.avatar && !parsed.avatar.includes('profile_avatar_')) ? parsed.avatar : initialProfile.avatar,
           heroBg: parsed.heroBg || initialProfile.heroBg,
           theme: parsed.theme || 'clean-minimal',
         };
