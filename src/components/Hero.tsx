@@ -27,24 +27,61 @@ export const Hero: React.FC<HeroProps> = ({ profile, onExploreProjects, onOpenAd
 
       <div className="max-w-5xl mx-auto px-6 relative z-10 text-center flex flex-col items-center">
         
-        {/* Centered Circular Profile Avatar */}
+        {/* Centered ARS GROUP SVG Logo Badge (No profile picture / avatar) */}
         <div className="relative mb-8 group">
-          <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-full overflow-hidden border-4 border-white shadow-xl ring-8 ring-emerald-500/15 transition-transform duration-300 group-hover:scale-105 bg-slate-100 flex items-center justify-center">
-            {profile.avatar ? (
-              <img
-                src={profile.avatar}
-                alt={profile.name}
-                referrerPolicy="no-referrer"
-                className="w-full h-full object-cover object-center"
-              />
-            ) : (
-              <div className="text-3xl font-bold font-mono text-slate-800">AS</div>
-            )}
+          <div className="p-3 sm:p-4 rounded-3xl bg-white shadow-xl ring-8 ring-emerald-500/10 border border-emerald-100 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
+            <svg
+              width="120"
+              height="120"
+              viewBox="0 0 120 120"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-28 h-28 sm:w-32 sm:h-32"
+            >
+              <defs>
+                <linearGradient id="arsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stopColor="#059669" />
+                  <stop offset="50%" stopColor="#0d9488" />
+                  <stop offset="100%" stopColor="#0284c7" />
+                </linearGradient>
+                <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#059669" floodOpacity="0.25" />
+                </filter>
+              </defs>
+              <rect x="10" y="10" width="100" height="100" rx="26" fill="url(#arsGrad)" filter="url(#shadow)" />
+              <rect x="14" y="14" width="92" height="92" rx="22" fill="none" stroke="#ffffff" strokeOpacity="0.3" strokeWidth="2" />
+              <text
+                x="60"
+                y="54"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill="#ffffff"
+                fontFamily="ui-sans-serif, system-ui, -apple-system, sans-serif"
+                fontWeight="900"
+                fontSize="26"
+                letterSpacing="1.5"
+              >
+                ARS
+              </text>
+              <text
+                x="60"
+                y="78"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill="#e0f2fe"
+                fontFamily="ui-sans-serif, system-ui, -apple-system, sans-serif"
+                fontWeight="800"
+                fontSize="11"
+                letterSpacing="3"
+              >
+                GROUP
+              </text>
+            </svg>
           </div>
           
           {/* Active Online Status Dot */}
-          <div className="absolute bottom-2 right-2 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center" title="Available for projects">
-            <span className="w-2 h-2 rounded-full bg-white animate-ping"></span>
+          <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-emerald-500 border-2 border-white flex items-center justify-center shadow-md" title="ARSGROUP Active Entity">
+            <span className="w-2.5 h-2.5 rounded-full bg-white animate-ping"></span>
           </div>
         </div>
 
