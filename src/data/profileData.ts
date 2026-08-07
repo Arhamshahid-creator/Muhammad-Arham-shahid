@@ -18,7 +18,7 @@ export const initialProfile: DeveloperProfile = {
     bio: "Passionate developer dedicated to architecting scalable frontend applications, high-performance PWAs, and intuitive utility tools. Leading digital craft under the ARSGROUP brand entity."
   },
   contact: {
-    email: "arhamsahab62@gmail.com",
+    email: "hplaptophome173@gmail.com",
     github: "https://github.com/MuhammadArhamShahid",
     portfolioUrl: "https://arsgroup-portfolio.vercel.app",
     location: "Pakistan / Remote"

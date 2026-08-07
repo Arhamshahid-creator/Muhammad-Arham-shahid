@@ -103,7 +103,7 @@ export const LinkEditorModal: React.FC<LinkEditorModalProps> = ({
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="arhamsahab62@gmail.com"
+              placeholder="hplaptophome173@gmail.com"
               className="w-full px-3 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:outline-none focus:border-indigo-500"
             />
           </div>

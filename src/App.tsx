@@ -16,9 +16,17 @@ export default function App() {
       const saved = localStorage.getItem('arsgroup_profile_v1');
       if (saved) {
         const parsed = JSON.parse(saved);
+        const contactEmail = (!parsed.contact?.email || parsed.contact?.email === 'arhamsahab62@gmail.com')
+          ? initialProfile.contact.email
+          : parsed.contact.email;
         return {
           ...initialProfile,
           ...parsed,
+          contact: {
+            ...initialProfile.contact,
+            ...parsed.contact,
+            email: contactEmail,
+          },
           avatar: (parsed.avatar && !parsed.avatar.includes('profile_avatar_')) ? parsed.avatar : initialProfile.avatar,
           heroBg: parsed.heroBg || initialProfile.heroBg,
           theme: parsed.theme || 'clean-minimal',
