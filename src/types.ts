@@ -48,6 +48,9 @@ export interface SkillCategory {
     featured?: boolean;
     logo?: string;
     linkUrl?: string;
+    brandTheme?: 'black' | 'white' | 'blue' | 'orange' | 'yellow' | 'purple' | 'cyan' | 'emerald' | 'rose' | 'indigo';
+    brandTag?: string;
+    metrics?: string[];
   }[];
 }
 

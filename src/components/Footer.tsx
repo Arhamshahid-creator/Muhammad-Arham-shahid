@@ -1,21 +1,30 @@
 import React from 'react';
 import { DeveloperProfile } from '../types';
-import { Shield, ArrowUp, Github, Mail, Globe } from 'lucide-react';
+import { ArrowUp } from 'lucide-react';
+import { AppPage } from './Header';
 
 interface FooterProps {
   profile: DeveloperProfile;
+  onSelectPage?: (page: AppPage) => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ profile }) => {
+export const Footer: React.FC<FooterProps> = ({ profile, onSelectPage }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleNav = (page: AppPage) => {
+    if (onSelectPage) {
+      onSelectPage(page);
+    }
+    scrollToTop();
+  };
+
   return (
-    <footer className="bg-slate-900 border-t border-slate-800 py-12 text-slate-400 font-mono text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+    <footer className="bg-slate-900 border-t border-slate-800 py-10 text-slate-400 font-mono text-xs">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
         
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-800">
           
           {/* Left Brand Identity */}
           <div className="flex items-center gap-3">
@@ -30,13 +39,32 @@ export const Footer: React.FC<FooterProps> = ({ profile }) => {
             </div>
           </div>
 
-          {/* Quick Nav Links */}
-          <div className="flex flex-wrap items-center justify-center gap-6 text-slate-300">
-            <a href="#overview" className="hover:text-emerald-400 transition-colors">Overview</a>
-            <a href="#projects" className="hover:text-emerald-400 transition-colors">Key Projects</a>
-            <a href="#interactive-demos" className="hover:text-emerald-400 transition-colors">Seatify & Meter-wise</a>
-            <a href="#skills" className="hover:text-emerald-400 transition-colors">Skills</a>
-            <a href="#contact" className="hover:text-emerald-400 transition-colors">Contact</a>
+          {/* Quick Nav Links (3 Pages) */}
+          <div className="flex flex-wrap items-center justify-center gap-5 text-slate-300">
+            <button
+              onClick={() => handleNav('overview')}
+              className="hover:text-emerald-400 transition-colors cursor-pointer"
+            >
+              01 // About & Identity
+            </button>
+            <button
+              onClick={() => handleNav('projects')}
+              className="hover:text-emerald-400 transition-colors cursor-pointer"
+            >
+              02 // Work & Projects
+            </button>
+            <button
+              onClick={() => handleNav('contact')}
+              className="hover:text-emerald-400 transition-colors cursor-pointer"
+            >
+              03 // Stack & Contact
+            </button>
+            <button
+              onClick={() => handleNav('all')}
+              className="hover:text-emerald-400 transition-colors text-slate-400 cursor-pointer"
+            >
+              All Pages
+            </button>
           </div>
 
           {/* Back To Top Button */}
