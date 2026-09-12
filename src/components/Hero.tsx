@@ -27,56 +27,14 @@ export const Hero: React.FC<HeroProps> = ({ profile, onExploreProjects, onOpenAd
 
       <div className="max-w-5xl mx-auto px-6 relative z-10 text-center flex flex-col items-center">
         
-        {/* Centered ARS GROUP SVG Logo Badge (No profile picture / avatar) */}
+        {/* Centered ARS GROUP Official SVG Logo Badge (No profile picture / avatar) */}
         <div className="relative mb-8 group">
-          <div className="p-3 sm:p-4 rounded-3xl bg-white shadow-xl ring-8 ring-emerald-500/10 border border-emerald-100 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
-            <svg
-              width="120"
-              height="120"
-              viewBox="0 0 120 120"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-28 h-28 sm:w-32 sm:h-32"
-            >
-              <defs>
-                <linearGradient id="arsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#059669" />
-                  <stop offset="50%" stopColor="#0d9488" />
-                  <stop offset="100%" stopColor="#0284c7" />
-                </linearGradient>
-                <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
-                  <feDropShadow dx="0" dy="4" stdDeviation="6" floodColor="#059669" floodOpacity="0.25" />
-                </filter>
-              </defs>
-              <rect x="10" y="10" width="100" height="100" rx="26" fill="url(#arsGrad)" filter="url(#shadow)" />
-              <rect x="14" y="14" width="92" height="92" rx="22" fill="none" stroke="#ffffff" strokeOpacity="0.3" strokeWidth="2" />
-              <text
-                x="60"
-                y="54"
-                textAnchor="middle"
-                dominantBaseline="central"
-                fill="#ffffff"
-                fontFamily="ui-sans-serif, system-ui, -apple-system, sans-serif"
-                fontWeight="900"
-                fontSize="26"
-                letterSpacing="1.5"
-              >
-                ARS
-              </text>
-              <text
-                x="60"
-                y="78"
-                textAnchor="middle"
-                dominantBaseline="central"
-                fill="#e0f2fe"
-                fontFamily="ui-sans-serif, system-ui, -apple-system, sans-serif"
-                fontWeight="800"
-                fontSize="11"
-                letterSpacing="3"
-              >
-                GROUP
-              </text>
-            </svg>
+          <div className="p-2 sm:p-2.5 rounded-3xl bg-slate-900 shadow-xl ring-8 ring-cyan-500/10 border border-slate-800 transition-transform duration-300 group-hover:scale-105 flex items-center justify-center">
+            <img
+              src="/ars-group-favicon.svg"
+              alt="ARS GROUP Logo"
+              className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl object-contain"
+            />
           </div>
           
           {/* Active Online Status Dot */}

@@ -19,9 +19,11 @@ export const Footer: React.FC<FooterProps> = ({ profile }) => {
           
           {/* Left Brand Identity */}
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-xs shadow-sm">
-              ARS
-            </div>
+            <img
+              src="/ars-group-favicon.svg"
+              alt="ARS GROUP"
+              className="w-8 h-8 rounded-lg object-contain shadow-sm"
+            />
             <div>
               <p className="text-white font-bold text-sm">{profile.brand}</p>
               <p className="text-slate-400 text-[11px]">{profile.name} • Developer Portfolio</p>

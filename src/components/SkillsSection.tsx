@@ -105,8 +105,18 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ categories }) => {
                   {category.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-emerald-400 transition-all duration-300 space-y-2 group"
+                      className="bg-white p-5 rounded-xl border border-slate-200 shadow-2xs hover:shadow-md hover:border-emerald-400 transition-all duration-300 space-y-3 group"
                     >
+                      {skill.logo && (
+                        <div className="h-12 rounded-lg bg-slate-50 border border-slate-200/80 px-3 py-1 flex items-center justify-center transition-colors group-hover:bg-slate-100/70">
+                          <img
+                            src={skill.logo}
+                            alt={`${skill.name} logo`}
+                            className="h-8 w-auto max-w-[200px] object-contain transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        </div>
+                      )}
                       <div className="flex items-center justify-between">
                         <h4 className="text-base font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
                           {skill.name}

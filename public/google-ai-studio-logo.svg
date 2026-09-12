@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="700"
+     height="180"
+     viewBox="0 0 700 180">
+
+  <defs>
+    <!-- Dark blue -->
+    <linearGradient id="blueTop" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#0B63CE"/>
+      <stop offset="100%" stop-color="#1558C7"/>
+    </linearGradient>
+
+    <!-- Light blue -->
+    <linearGradient id="blueBottom" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#9ABEFF"/>
+      <stop offset="100%" stop-color="#6D9CF2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Google AI Studio Icon -->
+
+  <!-- Left upper wing -->
+  <path
+    d="M82 83
+       C73 61 55 45 38 47
+       C20 49 11 67 18 84
+       C25 101 45 107 66 109
+       C79 110 88 99 82 83Z"
+    fill="url(#blueTop)"/>
+
+  <!-- Right upper wing -->
+  <path
+    d="M91 83
+       C91 61 101 39 119 34
+       C138 29 153 41 153 58
+       C153 77 137 91 115 101
+       C101 108 91 99 91 83Z"
+    fill="url(#blueTop)"/>
+
+  <!-- Left lower wing -->
+  <path
+    d="M80 101
+       C82 117 78 132 67 141
+       C57 149 46 143 47 132
+       C48 119 58 109 73 101
+       C77 99 79 99 80 101Z"
+    fill="url(#blueBottom)"/>
+
+  <!-- Right lower wing -->
+  <path
+    d="M91 101
+       C90 117 94 132 105 141
+       C115 149 126 143 125 132
+       C124 119 114 109 99 101
+       C95 99 92 99 91 101Z"
+    fill="url(#blueBottom)"/>
+
+
+  <!-- Google AI Studio Text -->
+
+  <text
+    x="178"
+    y="113"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="67"
+    font-weight="400"
+    letter-spacing="-2.5"
+    fill="#202124">
+    Google AI Studio
+  </text>
+
+</svg>

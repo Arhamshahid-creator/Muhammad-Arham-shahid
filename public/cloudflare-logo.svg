@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="600"
+     height="300"
+     viewBox="0 0 600 300">
+
+  <defs>
+    <!-- Main orange -->
+    <linearGradient id="cloudOrange"
+                    x1="0%" y1="0%"
+                    x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F38020"/>
+      <stop offset="100%" stop-color="#F89B22"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Cloudflare Logo -->
+  <g transform="translate(145,70)">
+
+    <!-- Main cloud -->
+    <path
+      d="M70 95
+         C48 95 30 78 30 56
+         C30 35 46 19 66 19
+         C73 19 80 21 86 25
+         C96 5 115 -8 137 -8
+         C169 -8 194 16 194 47
+         C194 50 194 53 193 56
+         C210 55 224 66 228 81
+         C231 93 223 105 210 108
+         L70 108
+         C58 108 48 102 43 94
+         Z"
+      fill="url(#cloudOrange)"/>
+
+    <!-- Right cloud section -->
+    <path
+      d="M187 48
+         C202 47 217 49 228 56
+         C237 61 244 70 246 81
+         C248 90 241 97 232 97
+         H196
+         C202 88 201 76 195 67
+         C191 60 185 54 177 51
+         Z"
+      fill="#F8A72B"/>
+
+    <!-- White separation -->
+    <path
+      d="M72 67
+         C105 67 137 67 171 67"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="5"
+      stroke-linecap="round"/>
+
+  </g>
+
+  <!-- CLOUDFLARE WORDMARK -->
+  <text
+    x="300"
+    y="215"
+    text-anchor="middle"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="43"
+    font-weight="700"
+    letter-spacing="7"
+    fill="#4A4A4A">
+    CLOUDFLARE
+  </text>
+
+  <!-- Registered symbol -->
+  <text
+    x="529"
+    y="194"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="11"
+    fill="#555555">
+    ®
+  </text>
+
+</svg>

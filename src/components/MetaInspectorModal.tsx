@@ -21,6 +21,16 @@ export const MetaInspectorModal: React.FC<MetaInspectorModalProps> = ({ isOpen, 
 
   const metaTagsList = [
     {
+      id: 'favicon',
+      label: 'Favicon & Universal Browser Icons',
+      code: `<!-- Favicon & Universal Browser Icons -->\n<link rel="icon" type="image/svg+xml" sizes="any" href="/ars-group-favicon.svg" />\n<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />\n<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />\n<link rel="shortcut icon" href="/favicon.ico" />\n<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />\n<link rel="manifest" href="/site.webmanifest" />`
+    },
+    {
+      id: 'google_verification',
+      label: 'Google Search Console Verification',
+      code: `<meta name="google-site-verification" content="iVkoGNm3DhZv1IlFvu86h9PMdTvHtxcM2c4RjzSeiOw" />`
+    },
+    {
       id: 'title',
       label: '<title>',
       code: `<title>${profile.name} | Full-Stack Developer & PWA Specialist | ${profile.brand}</title>`
@@ -32,39 +42,34 @@ export const MetaInspectorModal: React.FC<MetaInspectorModalProps> = ({ isOpen, 
     },
     {
       id: 'og_title',
-      label: 'og:title',
-      code: `<meta property="og:title" content="${profile.name} | Full-Stack Web Developer & PWA Specialist" />`
-    },
-    {
-      id: 'og_desc',
-      label: 'og:description',
-      code: `<meta property="og:description" content="Building fast, responsive, and user-centric web applications with seamless digital experiences. Key projects include Seatify and Meter-wise." />`
-    },
-    {
-      id: 'og_image',
-      label: 'og:image (Google & Social Image Crawl)',
-      code: `<meta property="og:image" content="${profile.avatar || '/src/assets/images/profile_avatar.jpg'}" />`
+      label: 'og:title & og:image (Google & Social Snippets)',
+      code: `<meta property="og:title" content="${profile.name} | Full-Stack Developer & PWA Specialist | ${profile.brand}" />\n<meta property="og:image" content="https://arsgroup-portfolio.vercel.app/icon-512.png" />\n<meta property="og:logo" content="https://arsgroup-portfolio.vercel.app/ars-group-favicon.svg" />`
     },
     {
       id: 'twitter_card',
       label: 'twitter:card & image',
-      code: `<meta name="twitter:card" content="summary_large_image" />\n<meta name="twitter:image" content="${profile.avatar || '/src/assets/images/profile_avatar.jpg'}" />`
+      code: `<meta name="twitter:card" content="summary" />\n<meta name="twitter:image" content="https://arsgroup-portfolio.vercel.app/icon-512.png" />`
     },
     {
       id: 'schema',
-      label: 'Schema.org JSON-LD (Person & Image)',
+      label: 'Schema.org JSON-LD (Person & Brand Organization)',
       code: `{
   "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "${profile.name}",
-  "alternateName": "${profile.brand}",
-  "jobTitle": "${profile.role}",
-  "image": "${profile.avatar || '/src/assets/images/profile_avatar.jpg'}",
-  "url": "https://arsgroup.dev/",
-  "knowsAbout": ["JavaScript", "React", "PWAs", "Tailwind CSS", "Vite"],
-  "hasPart": [
-    { "@type": "SoftwareApplication", "name": "Seatify", "operatingSystem": "PWA" },
-    { "@type": "SoftwareApplication", "name": "Meter-wise", "operatingSystem": "Web" }
+  "@graph": [
+    {
+      "@type": "Person",
+      "name": "${profile.name}",
+      "alternateName": "${profile.brand}",
+      "jobTitle": "${profile.role}",
+      "image": "https://arsgroup-portfolio.vercel.app/icon-512.png",
+      "url": "https://arsgroup-portfolio.vercel.app/"
+    },
+    {
+      "@type": "Organization",
+      "name": "${profile.brand}",
+      "url": "https://arsgroup-portfolio.vercel.app/",
+      "logo": "https://arsgroup-portfolio.vercel.app/ars-group-favicon.svg"
+    }
   ]
 }`
     }

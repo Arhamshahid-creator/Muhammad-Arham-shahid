@@ -55,11 +55,41 @@ export const skillCategoriesData: SkillCategory[] = [
     title: "Cloud Services & Platforms",
     icon: "Wrench",
     skills: [
-      { name: "GitHub", level: "Expert", description: "Source code repositories, pull requests, automated GitHub Actions CI/CD workflows, project management.", featured: true },
-      { name: "Vercel", level: "Expert", description: "Zero-config continuous deployments, edge network caching, custom domain management, serverless integrations.", featured: true },
-      { name: "Google AI Studio", level: "Expert", description: "Integrating Gemini LLM APIs, prompt engineering, multimodal AI model workflows, rapid prototyping.", featured: true },
-      { name: "Cloudflare", level: "Advanced", description: "DNS management, edge security, SSL protection, Workers serverless edge execution, asset performance.", featured: true },
-      { name: "Google Search Console", level: "Expert", description: "Sitemap submission, Google search crawling verification, SEO structured schema indexing, core web vitals auditing.", featured: true }
+      {
+        name: "GitHub",
+        level: "Expert",
+        description: "Source code repositories, pull requests, automated GitHub Actions CI/CD workflows, project management.",
+        featured: true,
+        logo: "/github-logo.svg"
+      },
+      {
+        name: "Vercel",
+        level: "Expert",
+        description: "Zero-config continuous deployments, edge network caching, custom domain management, serverless integrations.",
+        featured: true,
+        logo: "/vercel-logo.svg"
+      },
+      {
+        name: "Google AI Studio",
+        level: "Expert",
+        description: "Integrating Gemini LLM APIs, prompt engineering, multimodal AI model workflows, rapid prototyping.",
+        featured: true,
+        logo: "/google-ai-studio-logo.svg"
+      },
+      {
+        name: "Cloudflare",
+        level: "Advanced",
+        description: "DNS management, edge security, SSL protection, Workers serverless edge execution, asset performance.",
+        featured: true,
+        logo: "/cloudflare-logo.svg"
+      },
+      {
+        name: "Google Search Console",
+        level: "Expert",
+        description: "Sitemap submission, Google search crawling verification, SEO structured schema indexing, core web vitals auditing.",
+        featured: true,
+        logo: "/google-search-console-logo.svg"
+      }
     ]
   },
   {

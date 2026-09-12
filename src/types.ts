@@ -46,6 +46,8 @@ export interface SkillCategory {
     level: 'Expert' | 'Advanced' | 'Proficient';
     description: string;
     featured?: boolean;
+    logo?: string;
+    linkUrl?: string;
   }[];
 }
 

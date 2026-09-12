@@ -35,6 +35,11 @@ export const Header: React.FC<HeaderProps> = ({ profile, onOpenAdminPortal }) =>
         
         {/* Brand Identity */}
         <a href="#home" className="flex items-center gap-2.5 group">
+          <img
+            src="/ars-group-favicon.svg"
+            alt="ARS GROUP"
+            className="w-7 h-7 rounded-md object-contain shadow-xs"
+          />
           <span className="font-bold text-slate-900 text-xl tracking-wider group-hover:text-emerald-600 transition-colors uppercase">
             {profile.brand || "ARSGROUP"}
           </span>
