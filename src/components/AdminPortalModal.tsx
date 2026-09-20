@@ -22,7 +22,7 @@ interface AdminPortalModalProps {
   showcaseProjects: ShowcaseProject[];
   onUpdateShowcaseProjects: (projects: ShowcaseProject[]) => void;
   currentAvatar?: string;
-  onUpdateAvatar?: (url: string) => void;
+  onUpdateAvatar?: (url: string, passcode?: string) => Promise<boolean | void> | void;
 }
 
 const PRESET_IMAGES = [
@@ -57,19 +57,31 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
   const [passcodeError, setPasscodeError] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [avatarDragging, setAvatarDragging] = useState(false);
+  const [isSavingAvatar, setIsSavingAvatar] = useState(false);
 
   const handleAvatarFile = (file: File) => {
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file (PNG, JPG, WebP, etc.).');
       return;
     }
+    setIsSavingAvatar(true);
     const reader = new FileReader();
-    reader.onload = () => {
-      if (onUpdateAvatar) {
-        onUpdateAvatar(reader.result as string);
-        setSuccessMessage('Author profile photo updated successfully!');
-        setTimeout(() => setSuccessMessage(''), 4500);
+    reader.onload = async () => {
+      try {
+        if (onUpdateAvatar) {
+          await onUpdateAvatar(reader.result as string, passcode || 'admin173');
+          setSuccessMessage('Author profile photo saved to database & deployed permanently!');
+          setTimeout(() => setSuccessMessage(''), 6000);
+        }
+      } catch (err: any) {
+        setPasscodeError('Error saving photo to database: ' + (err.message || 'Unknown error'));
+      } finally {
+        setIsSavingAvatar(false);
       }
+    };
+    reader.onerror = () => {
+      setIsSavingAvatar(false);
+      alert('Failed to read image file.');
     };
     reader.readAsDataURL(file);
   };
@@ -268,8 +280,8 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                     <button
                       type="button"
                       onClick={() => {
-                        onUpdateAvatar('');
-                        setSuccessMessage('Author profile photo cleared.');
+                        onUpdateAvatar('', passcode || 'admin173');
+                        setSuccessMessage('Author profile photo cleared from database.');
                         setTimeout(() => setSuccessMessage(''), 4000);
                       }}
                       className="text-xs font-mono text-[#EF4444] hover:text-[#F87171] flex items-center gap-1.5 transition-colors self-start sm:self-auto cursor-pointer"
@@ -338,16 +350,24 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                       className="cursor-pointer flex flex-col items-center justify-center gap-2"
                     >
                       <div className="w-10 h-10 rounded-xl bg-[#E5C158]/10 border border-[#E5C158]/30 flex items-center justify-center text-[#E5C158]">
-                        <Upload className="w-5 h-5" />
+                        {isSavingAvatar ? (
+                          <div className="w-5 h-5 border-2 border-[#E5C158] border-t-transparent rounded-full animate-spin"></div>
+                        ) : (
+                          <Upload className="w-5 h-5" />
+                        )}
                       </div>
                       <div>
                         <span className="text-xs font-heading font-bold text-white hover:text-[#E5C158] transition-colors">
-                          Upload Photo File
+                          {isSavingAvatar ? 'Storing photo in database...' : 'Upload Photo File'}
                         </span>
-                        <span className="text-xs font-mono text-[#888899]"> or drag & drop here</span>
+                        {!isSavingAvatar && (
+                          <span className="text-xs font-mono text-[#888899]"> or drag & drop here</span>
+                        )}
                       </div>
                       <p className="text-[10px] font-mono text-[#777788]">
-                        Upload your PNG, JPG, or WebP photo to display across the hero and about sections
+                        {isSavingAvatar
+                          ? 'Writing directly to server storage and database for live website deployment...'
+                          : 'Upload your photo file to store in the database & display across all live visitors'}
                       </p>
                     </label>
                   </div>

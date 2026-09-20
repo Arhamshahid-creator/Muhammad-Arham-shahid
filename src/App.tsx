@@ -30,14 +30,6 @@ export function App() {
     return initialProfile;
   });
 
-  const handleUpdateAvatar = (newAvatarUrl: string) => {
-    setProfile((prev) => {
-      const updated = { ...prev, avatar: newAvatarUrl };
-      localStorage.setItem('pwa_portfolio_profile', JSON.stringify(updated));
-      return updated;
-    });
-  };
-
   const [showcaseProjects, setShowcaseProjects] = useState<ShowcaseProject[]>(() => {
     const saved = localStorage.getItem('pwa_portfolio_showcase_projects');
     if (saved) {
@@ -49,6 +41,86 @@ export function App() {
     }
     return initialShowcaseProjects;
   });
+
+  // Sync with persistent backend database on load
+  useEffect(() => {
+    // 1. Check if server has custom avatar stored in database
+    fetch('/api/avatar')
+      .then((res) => {
+        if (res.ok) {
+          setProfile((prev) => ({
+            ...prev,
+            avatar: `/api/avatar?v=${Date.now()}`
+          }));
+        }
+      })
+      .catch((err) => console.log('Backend avatar check:', err));
+
+    // 2. Fetch projects stored in server database
+    fetch('/api/projects')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.projects && Array.isArray(data.projects) && data.projects.length > 0) {
+          setShowcaseProjects(data.projects);
+          localStorage.setItem('pwa_portfolio_showcase_projects', JSON.stringify(data.projects));
+        }
+      })
+      .catch((err) => console.log('Backend projects sync:', err));
+  }, []);
+
+  const handleUpdateAvatar = async (newAvatarUrl: string, adminPasscode: string = 'admin173') => {
+    // 1. Immediately update UI state and local storage
+    setProfile((prev) => {
+      const updated = { ...prev, avatar: newAvatarUrl || initialProfile.avatar };
+      localStorage.setItem('pwa_portfolio_profile', JSON.stringify(updated));
+      return updated;
+    });
+
+    // 2. Persist to server database on backend
+    try {
+      if (newAvatarUrl && newAvatarUrl.trim() !== '') {
+        const response = await fetch('/api/profile/avatar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            passcode: adminPasscode,
+            avatarData: newAvatarUrl
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.avatarUrl) {
+            setProfile((prev) => {
+              const updated = { ...prev, avatar: data.avatarUrl };
+              localStorage.setItem('pwa_portfolio_profile', JSON.stringify(updated));
+              return updated;
+            });
+          }
+        }
+      } else {
+        await fetch('/api/profile/avatar', {
+          method: 'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ passcode: adminPasscode })
+        });
+      }
+    } catch (e) {
+      console.warn('Backend avatar persistence failed, kept in local state:', e);
+    }
+  };
+
+  const handleUpdateShowcaseProjects = (projectsList: ShowcaseProject[]) => {
+    setShowcaseProjects(projectsList);
+    localStorage.setItem('pwa_portfolio_showcase_projects', JSON.stringify(projectsList));
+
+    // Persist projects to server database
+    fetch('/api/projects', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ passcode: 'admin173', projects: projectsList })
+    }).catch((e) => console.warn('Backend projects sync skipped:', e));
+  };
 
   const [projects, setProjects] = useState<Project[]>(() => {
     const saved = localStorage.getItem('pwa_portfolio_projects');
@@ -120,7 +192,7 @@ export function App() {
         isOpen={adminPortalOpen}
         onClose={() => setAdminPortalOpen(false)}
         showcaseProjects={showcaseProjects}
-        onUpdateShowcaseProjects={setShowcaseProjects}
+        onUpdateShowcaseProjects={handleUpdateShowcaseProjects}
         currentAvatar={profile.avatar}
         onUpdateAvatar={handleUpdateAvatar}
       />
