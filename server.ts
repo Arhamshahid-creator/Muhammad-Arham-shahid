@@ -66,6 +66,12 @@ async function startServer() {
     }
 
     // Otherwise serve default bundled profile photo
+    const defaultPng = path.join(PUBLIC_DIR, "arham_real_photo.png");
+    if (fs.existsSync(defaultPng)) {
+      res.setHeader("Content-Type", "image/png");
+      res.setHeader("Cache-Control", "public, max-age=300");
+      return res.sendFile(defaultPng);
+    }
     const defaultPublicPhoto = path.join(PUBLIC_DIR, "profile-photo.jpg");
     if (fs.existsSync(defaultPublicPhoto)) {
       res.setHeader("Content-Type", "image/jpeg");

@@ -25,6 +25,12 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ profile }) => {
               src={profile.avatar}
               alt={profile.name || "Muhammad Arham Shahid"}
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target.src !== window.location.origin + '/arham_real_photo.png') {
+                  target.src = '/arham_real_photo.png';
+                }
+              }}
               className="w-5 h-5 rounded-full object-cover border border-[#E5C158]/70"
             />
           ) : (

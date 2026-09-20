@@ -301,6 +301,12 @@ export const AdminPortalModal: React.FC<AdminPortalModalProps> = ({
                           src={currentAvatar}
                           alt="Author Current Headshot"
                           referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            const target = e.currentTarget;
+                            if (target.src !== window.location.origin + '/arham_real_photo.png') {
+                              target.src = '/arham_real_photo.png';
+                            }
+                          }}
                           className="w-full h-full object-cover object-top"
                         />
                       ) : (

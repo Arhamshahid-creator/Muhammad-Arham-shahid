@@ -21,7 +21,17 @@ export function App() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        const resolvedAvatar = (parsed.avatar && parsed.avatar.trim() !== '') ? parsed.avatar : initialProfile.avatar;
+        let resolvedAvatar = (parsed.avatar && parsed.avatar.trim() !== '') ? parsed.avatar : initialProfile.avatar;
+        // Purge any stale /api/avatar or obsolete generated images to always display Arham's authentic photo
+        if (
+          typeof resolvedAvatar === 'string' &&
+          (resolvedAvatar.startsWith('/api/avatar') ||
+           resolvedAvatar.includes('profile_avatar') ||
+           resolvedAvatar.includes('profile_portrait') ||
+           resolvedAvatar.includes('arham_real_portrait'))
+        ) {
+          resolvedAvatar = initialProfile.avatar;
+        }
         return { ...initialProfile, ...parsed, avatar: resolvedAvatar };
       } catch (e) {
         console.error('Failed to parse cached profile', e);
@@ -42,30 +52,38 @@ export function App() {
     return initialShowcaseProjects;
   });
 
-  // Sync with persistent backend database on load
+  // Sync with persistent backend database on load (with Cloudflare Pages static guard)
   useEffect(() => {
     // 1. Check if server has custom avatar stored in database
     fetch('/api/avatar')
       .then((res) => {
-        if (res.ok) {
+        // Crucial for Cloudflare Pages & Vercel: verify it is actually an image, NOT an HTML SPA redirect
+        const contentType = res.headers.get('content-type') || '';
+        if (res.ok && contentType.startsWith('image/')) {
           setProfile((prev) => ({
             ...prev,
             avatar: `/api/avatar?v=${Date.now()}`
           }));
         }
       })
-      .catch((err) => console.log('Backend avatar check:', err));
+      .catch((err) => console.log('Static host mode active (bundled assets used):', err));
 
     // 2. Fetch projects stored in server database
     fetch('/api/projects')
-      .then((res) => res.json())
+      .then((res) => {
+        const contentType = res.headers.get('content-type') || '';
+        if (res.ok && contentType.includes('application/json')) {
+          return res.json();
+        }
+        return null;
+      })
       .then((data) => {
-        if (data.projects && Array.isArray(data.projects) && data.projects.length > 0) {
+        if (data?.projects && Array.isArray(data.projects) && data.projects.length > 0) {
           setShowcaseProjects(data.projects);
           localStorage.setItem('pwa_portfolio_showcase_projects', JSON.stringify(data.projects));
         }
       })
-      .catch((err) => console.log('Backend projects sync:', err));
+      .catch((err) => console.log('Static host mode active for projects:', err));
   }, []);
 
   const handleUpdateAvatar = async (newAvatarUrl: string, adminPasscode: string = 'admin173') => {

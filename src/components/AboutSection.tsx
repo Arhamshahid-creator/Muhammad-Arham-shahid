@@ -70,6 +70,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ profile }) => {
                       src={profile.avatar}
                       alt={profile.name}
                       referrerPolicy="no-referrer"
+                      onError={(e) => {
+                        const target = e.currentTarget;
+                        if (target.src !== window.location.origin + '/arham_real_photo.png') {
+                          target.src = '/arham_real_photo.png';
+                        }
+                      }}
                       className="w-full h-full object-cover object-top"
                     />
                   ) : (
