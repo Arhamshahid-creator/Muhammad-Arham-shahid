@@ -2,6 +2,7 @@ import { DeveloperProfile, Project, SkillCategory } from '../types';
 import seatifyImg from '../assets/images/seatify_app_preview_1786035502763.jpg';
 import meterwiseImg from '../assets/images/meterwise_app_preview_1786035515545.jpg';
 import heroBgImg from '../assets/images/hero_mountain_bg_1786036239686.jpg';
+import profileAvatarImg from '../assets/images/profile_avatar_1786036165505.jpg';
 
 export const initialProfile: DeveloperProfile = {
   name: "Muhammad Arham Shahid",
@@ -9,7 +10,7 @@ export const initialProfile: DeveloperProfile = {
   role: "PROGRESSIVE WEB APP (PWA) ARCHITECT & DEVELOPER",
   location: "Global / Remote",
   status: "Available for PWA & Frontend Engineering",
-  avatar: "",
+  avatar: profileAvatarImg,
   heroBg: heroBgImg,
   overview: {
     primaryFocus: "Progressive Web Apps (PWAs), Offline-First Service Worker Architecture, 99+ Lighthouse Optimization, and Cross-Platform Fluidity.",

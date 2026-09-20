@@ -21,7 +21,8 @@ export function App() {
     if (saved) {
       try {
         const parsed = JSON.parse(saved);
-        return { ...initialProfile, ...parsed };
+        const resolvedAvatar = (parsed.avatar && parsed.avatar.trim() !== '') ? parsed.avatar : initialProfile.avatar;
+        return { ...initialProfile, ...parsed, avatar: resolvedAvatar };
       } catch (e) {
         console.error('Failed to parse cached profile', e);
       }
