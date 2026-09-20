@@ -36,6 +36,19 @@ export interface Project {
   demoType?: string;
   liveUrl?: string;
   githubUrl?: string;
+  lighthouseScores?: {
+    performance: number;
+    accessibility: number;
+    bestPractices: number;
+    seo: number;
+    pwa: number;
+  };
+  metrics?: {
+    fcp: string; // First Contentful Paint, e.g. "0.4s"
+    lcp: string; // Largest Contentful Paint, e.g. "0.8s"
+    cls: string; // Cumulative Layout Shift, e.g. "0.00"
+    offlineCache: string; // e.g. "Cache-First"
+  };
 }
 
 export interface SkillCategory {

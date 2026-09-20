@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DeveloperProfile } from '../types';
-import { Lock, Menu, X, ArrowRight, Layers, User, Cpu, Sparkles } from 'lucide-react';
+import { Lock, Menu, X, Layers, User, Cpu, Sparkles } from 'lucide-react';
 
 export type AppPage = 'overview' | 'projects' | 'contact' | 'all';
 
@@ -28,10 +28,10 @@ export const Header: React.FC<HeaderProps> = ({
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navPages: { id: AppPage; label: string; number: string; icon: React.ElementType }[] = [
-    { id: 'overview', label: 'About & Identity', number: '01', icon: User },
-    { id: 'projects', label: 'Work & Projects', number: '02', icon: Layers },
-    { id: 'contact', label: 'Stack & Contact', number: '03', icon: Cpu },
+  const navPages: { id: AppPage; label: string; prefix: string; icon: React.ElementType }[] = [
+    { id: 'overview', label: 'Overview', prefix: '01', icon: User },
+    { id: 'projects', label: 'Bento Work', prefix: '02', icon: Layers },
+    { id: 'contact', label: 'Stack', prefix: '03', icon: Cpu },
   ];
 
   const handleNavClick = (page: AppPage) => {
@@ -42,100 +42,108 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white/95 backdrop-blur-md border-b border-slate-200 py-2.5 shadow-sm' : 'bg-white/90 backdrop-blur-sm border-b border-slate-100 py-3'
+      scrolled
+        ? 'bg-[#08080A]/95 backdrop-blur-xl border-b border-[#4A3E1D]/50 py-3 shadow-2xl shadow-black/80'
+        : 'bg-[#08080A]/85 backdrop-blur-md border-b border-[#4A3E1D]/30 py-4'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         
-        {/* Brand Identity */}
+        {/* Brand Identity - Space Grotesk for name */}
         <button
           onClick={() => handleNavClick('overview')}
-          className="flex items-center gap-2.5 group cursor-pointer text-left"
+          className="flex items-center gap-3 group cursor-pointer text-left"
         >
-          <img
-            src="/ars-group-favicon.svg"
-            alt="ARS GROUP"
-            className="w-8 h-8 rounded-lg object-contain shadow-xs transition-transform group-hover:scale-105"
-          />
+          <div className="relative">
+            <img
+              src="/ars-group-favicon.svg"
+              alt="ARS GROUP Emblem"
+              referrerPolicy="no-referrer"
+              className="w-8 h-8 rounded-lg object-contain shadow-md border border-[#4A3E1D]/70 transition-transform group-hover:scale-105"
+            />
+            <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-[#E5C158] border border-[#08080A] shadow-[0_0_8px_#E5C158]"></span>
+          </div>
           <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-slate-900 text-lg tracking-wider group-hover:text-emerald-600 transition-colors uppercase">
+            <div className="flex items-center gap-2">
+              <span className="font-heading font-bold text-[#F5F5F7] text-base tracking-tight group-hover:text-[#E5C158] transition-colors uppercase">
                 {profile.brand || "ARSGROUP"}
               </span>
-              <span className="text-[10px] px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 font-mono font-bold">
-                DEV
+              <span className="text-[10px] px-2 py-0.5 rounded bg-[#1C180E] text-[#E5C158] font-mono font-medium border border-[#4A3E1D]">
+                PWA
               </span>
             </div>
-            <span className="hidden sm:block text-[11px] font-mono text-slate-500 leading-none">
+            <span className="hidden sm:block text-[11px] font-heading font-medium text-[#8E8A7B] leading-none">
               Muhammad Arham Shahid
             </span>
           </div>
         </button>
 
-        {/* 3-Page Navigation Tabs */}
-        <nav className="hidden md:flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200/80">
+        {/* Desktop Header Nav Links with 01 Overview, 02 Bento Work, 03 Stack */}
+        <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-[#0E0E12] border border-[#4A3E1D]/50">
           {navPages.map((page) => {
-            const Icon = page.icon;
             const isActive = activePage === page.id;
             return (
               <button
                 key={page.id}
                 onClick={() => handleNavClick(page.id)}
-                className={`flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+                className={`flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer ${
                   isActive
-                    ? 'bg-slate-900 text-white shadow-xs'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
+                    ? 'opacity-100 text-[#F5F5F7] bg-[#1F1A10] border border-[#E5C158]/50 shadow-[0_0_15px_rgba(229,193,88,0.15)] font-semibold'
+                    : 'opacity-40 hover:opacity-100 text-[#A1A1AA] hover:text-[#F5F5F7] hover:bg-white/[0.03]'
                 }`}
               >
-                <span className={`text-[10px] ${isActive ? 'text-emerald-400' : 'text-slate-400'}`}>
-                  {page.number}
+                <span className={isActive ? 'text-[#E5C158] font-bold' : 'text-[#8E8A7B]'}>
+                  {page.prefix}
                 </span>
                 <span>{page.label}</span>
               </button>
             );
           })}
 
+          <div className="w-px h-4 bg-[#4A3E1D]/60 mx-1"></div>
+
+          {/* View All Toggle */}
           <button
             onClick={() => handleNavClick('all')}
-            className={`px-3 py-1.5 rounded-lg text-xs font-mono font-bold transition-all cursor-pointer ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer ${
               activePage === 'all'
-                ? 'bg-emerald-600 text-white shadow-xs'
-                : 'text-slate-500 hover:text-slate-900'
+                ? 'opacity-100 text-[#F5F5F7] bg-[#1F1A10] border border-[#E5C158]/50 font-semibold'
+                : 'opacity-40 hover:opacity-100 text-[#A1A1AA] hover:text-[#F5F5F7]'
             }`}
-            title="Continuous scroll view"
+            title="View complete single-page stream"
           >
-            All Pages
+            All Work
           </button>
         </nav>
 
-        {/* Actions / Admin Portal */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Right Action: Admin Access & Mobile Hamburger */}
+        <div className="flex items-center gap-2.5">
           <button
             onClick={onOpenAdminPortal}
-            className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 text-xs font-mono font-bold text-slate-700 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200 rounded-lg transition-all cursor-pointer shadow-2xs"
-            title="Admin Management Portal"
+            className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0E0E12] hover:bg-[#16151B] text-[#A1A1AA] hover:text-[#F5F5F7] border border-[#4A3E1D]/60 text-xs font-mono transition-all cursor-pointer"
+            title="Open Admin Settings"
           >
-            <Lock className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="hidden sm:inline">Admin Portal</span>
-            <span className="sm:hidden">Admin</span>
+            <Lock className="w-3.5 h-3.5 text-[#E5C158]" />
+            <span>Admin</span>
           </button>
 
-          {/* Mobile Menu Hamburger */}
+          {/* Mobile Menu Toggle Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-slate-700 hover:text-slate-900 bg-slate-100 border border-slate-200"
+            className="md:hidden p-2 rounded-lg bg-[#0E0E12] text-zinc-300 hover:text-[#F5F5F7] border border-[#4A3E1D]/60 cursor-pointer"
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
+
       </div>
 
       {/* Mobile Dropdown Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-5 space-y-2 animate-in fade-in slide-in-from-top-2 shadow-lg">
-          <p className="text-[11px] font-mono text-slate-400 uppercase tracking-wider px-2">
-            Switch Page View:
-          </p>
+        <div className="md:hidden bg-[#08080A] border-b border-[#4A3E1D]/50 px-4 py-4 space-y-2 animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="text-[10px] font-mono uppercase tracking-widest text-[#8E8A7B] px-3 pb-1 font-bold">
+            Navigation
+          </div>
           {navPages.map((page) => {
             const Icon = page.icon;
             const isActive = activePage === page.id;
@@ -143,30 +151,47 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 key={page.id}
                 onClick={() => handleNavClick(page.id)}
-                className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-mono font-bold transition-all text-left ${
-                  isActive ? 'bg-slate-900 text-white' : 'text-slate-700 hover:bg-slate-100'
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-xs font-mono tracking-wider transition-all text-left ${
+                  isActive
+                    ? 'opacity-100 text-[#F5F5F7] bg-[#18150D] border border-[#E5C158]/40 font-semibold'
+                    : 'opacity-40 hover:opacity-100 text-[#A1A1AA] hover:text-[#F5F5F7] hover:bg-white/[0.03]'
                 }`}
               >
-                <div className="flex items-center gap-2">
-                  <Icon className="w-4 h-4" />
-                  <span>{page.label}</span>
+                <div className="flex items-center gap-2.5">
+                  <Icon className="w-4 h-4 text-[#E5C158]" />
+                  <span>{page.prefix} {page.label}</span>
                 </div>
-                <span className={`text-[10px] ${isActive ? 'text-emerald-400' : 'text-slate-400'}`}>
-                  Page {page.number}
-                </span>
               </button>
             );
           })}
 
           <button
             onClick={() => handleNavClick('all')}
-            className={`w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-mono font-bold transition-all text-left ${
-              activePage === 'all' ? 'bg-emerald-600 text-white' : 'text-slate-700 hover:bg-slate-100'
+            className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-xs font-mono tracking-wider transition-all text-left ${
+              activePage === 'all'
+                ? 'opacity-100 text-[#F5F5F7] bg-[#18150D] border border-[#E5C158]/40 font-semibold'
+                : 'opacity-40 hover:opacity-100 text-[#A1A1AA] hover:text-[#F5F5F7] hover:bg-white/[0.03]'
             }`}
           >
-            <span>View All (Single Scroll)</span>
-            <span className="text-[10px] text-slate-400">Full</span>
+            <div className="flex items-center gap-2.5">
+              <Sparkles className="w-4 h-4 text-[#E5C158]" />
+              <span>All Work</span>
+            </div>
           </button>
+
+          <div className="pt-3 border-t border-[#4A3E1D]/50 flex items-center justify-between px-2">
+            <button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                onOpenAdminPortal();
+              }}
+              className="flex items-center gap-2 text-xs font-mono text-[#E5C158] py-1"
+            >
+              <Lock className="w-3.5 h-3.5" />
+              <span>Admin Management</span>
+            </button>
+            <span className="text-[10px] font-mono text-[#8E8A7B]">ARSGROUP • 2026</span>
+          </div>
         </div>
       )}
     </header>

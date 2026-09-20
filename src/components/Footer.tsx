@@ -1,6 +1,6 @@
 import React from 'react';
 import { DeveloperProfile } from '../types';
-import { ArrowUp } from 'lucide-react';
+import { ArrowUp, ShieldCheck } from 'lucide-react';
 import { AppPage } from './Header';
 
 interface FooterProps {
@@ -21,72 +21,99 @@ export const Footer: React.FC<FooterProps> = ({ profile, onSelectPage }) => {
   };
 
   return (
-    <footer className="bg-slate-900 border-t border-slate-800 py-10 text-slate-400 font-mono text-xs">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
+    <footer className="bg-[#08080A] border-t border-[#4A3E1D]/40 py-14 text-[#8E8A7B] font-mono text-xs relative overflow-hidden">
+      
+      {/* Background Subtle Luxury Grid */}
+      <div className="absolute inset-0 bg-grid-obsidian opacity-20 pointer-events-none"></div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 relative z-10">
         
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 border-b border-slate-800">
+        {/* Top Row: Brand & Clean Monospace Navigation */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-[#4A3E1D]/40">
           
           {/* Left Brand Identity */}
           <div className="flex items-center gap-3">
             <img
               src="/ars-group-favicon.svg"
-              alt="ARS GROUP"
-              className="w-8 h-8 rounded-lg object-contain shadow-sm"
+              alt="ARS GROUP Emblem"
+              referrerPolicy="no-referrer"
+              className="w-8 h-8 rounded-lg object-contain shadow-md border border-[#4A3E1D]/60"
             />
             <div>
-              <p className="text-white font-bold text-sm">{profile.brand}</p>
-              <p className="text-slate-400 text-[11px]">{profile.name} • Developer Portfolio</p>
+              <p className="text-[#F5F5F7] font-bold font-heading text-sm tracking-wide">
+                {profile.brand}
+              </p>
+              <p className="text-[#8E8A7B] text-[11px] font-mono">
+                {profile.name} • Progressive Web App Architect
+              </p>
             </div>
           </div>
 
-          {/* Quick Nav Links (3 Pages) */}
-          <div className="flex flex-wrap items-center justify-center gap-5 text-slate-300">
+          {/* Quick Nav Links simply formatted as 01 Overview, 02 Bento Work, 03 Stack */}
+          <div className="flex flex-wrap items-center justify-center gap-6">
             <button
               onClick={() => handleNav('overview')}
-              className="hover:text-emerald-400 transition-colors cursor-pointer"
+              className="text-xs font-mono tracking-wider opacity-50 hover:opacity-100 hover:text-[#E5C158] transition-all cursor-pointer"
             >
-              01 // About & Identity
+              01 Overview
             </button>
             <button
               onClick={() => handleNav('projects')}
-              className="hover:text-emerald-400 transition-colors cursor-pointer"
+              className="text-xs font-mono tracking-wider opacity-50 hover:opacity-100 hover:text-[#E5C158] transition-all cursor-pointer"
             >
-              02 // Work & Projects
+              02 Bento Work
             </button>
             <button
               onClick={() => handleNav('contact')}
-              className="hover:text-emerald-400 transition-colors cursor-pointer"
+              className="text-xs font-mono tracking-wider opacity-50 hover:opacity-100 hover:text-[#E5C158] transition-all cursor-pointer"
             >
-              03 // Stack & Contact
+              03 Stack
             </button>
             <button
               onClick={() => handleNav('all')}
-              className="hover:text-emerald-400 transition-colors text-slate-400 cursor-pointer"
+              className="text-xs font-mono tracking-wider opacity-50 hover:opacity-100 hover:text-[#E5C158] transition-all cursor-pointer"
             >
-              All Pages
+              All Work
             </button>
           </div>
 
-          {/* Back To Top Button */}
+          {/* Back to Top Button */}
           <button
             onClick={scrollToTop}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition-colors cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-[#0E0E12] hover:bg-[#18150D] text-[#8E8A7B] hover:text-[#E5C158] border border-[#4A3E1D] transition-all cursor-pointer"
           >
-            <span>Back to top</span>
-            <ArrowUp className="w-3.5 h-3.5" />
+            <span>Top</span>
+            <ArrowUp className="w-3.5 h-3.5 text-[#E5C158]" />
           </button>
         </div>
 
-        {/* Bottom Credits & Ecosystem */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-400 text-[11px]">
-          <p>© {new Date().getFullYear()} {profile.brand} ({profile.name}). All rights reserved.</p>
-          <div className="flex items-center gap-4">
-            <a href={profile.contact.github} target="_blank" rel="noreferrer" className="hover:text-emerald-400 transition-colors">GitHub</a>
-            <span>•</span>
-            <a href={profile.contact.portfolioUrl} target="_blank" rel="noreferrer" className="hover:text-emerald-400 transition-colors">Vercel</a>
-            <span>•</span>
-            <span className="text-slate-300">Google AI Studio • Cloudflare • Search Console</span>
+        {/* Bottom Technical Status Capsule Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+          
+          <div className="text-[11px] text-[#8E8A7B]">
+            © 2026 <strong className="text-[#F5F5F7] font-normal">{profile.name}</strong> • ARSGROUP. All rights reserved.
           </div>
+
+          {/* Highly Polished Clean Status Pill Badges with Soft Gold Border & Text Tint */}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            
+            {/* 100/100 Lighthouse Badge with subtle glowing gold dot */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14120B] border border-[#4A3E1D] shadow-[0_0_12px_rgba(229,193,88,0.1)]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E5C158] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E5C158] shadow-[0_0_6px_#E5C158]"></span>
+              </span>
+              <span className="text-[#E5C158] font-bold text-xs tracking-wide">100/100 Lighthouse</span>
+            </div>
+
+            {/* Service Worker Verified Status Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#14120B] border border-[#4A3E1D]">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#E5C158]" />
+              <span className="text-[#E5C158] font-medium text-xs tracking-wide">Service Worker Verified</span>
+            </div>
+
+          </div>
+
         </div>
 
       </div>
